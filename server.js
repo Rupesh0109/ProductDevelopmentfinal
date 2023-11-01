@@ -11,10 +11,9 @@ app.use('/assets',express.static(__dirname+'/public'));
 
 const session=require("express-session");
 const MongoDBSession=require("connect-mongodb-session")(session)
-const MONGOURI="mongodb+srv://rupesh:rupesh123@laundry.xk6qtjt.mongodb.net/?retryWrites=true&w=majority";
+const MONGOURI="mongodb+srv://rupesh:rupesh@photos.qztzlxo.mongodb.net/?retryWrites=true&w=majority";
 const colors=require("colors");
 const mongoose=require("mongoose");
-
 const UserModel=require("./models/User")
 
 const connectDB = async () => {
@@ -54,14 +53,7 @@ const isAuth=async(req,res,next)=>{
       res.redirect("/login?error=notlogin")  
    }
 }
-const isAdmin=async(req,res,next)=>{
-   if(req.session.isAdmin){
-     await next()
-   }
-   else{
-      res.redirect("/?error=notadmin")
-   }
-}
+
 const generateQR = async text => {
    try {
      return await QRCode.toDataURL(text)
@@ -130,18 +122,7 @@ app.get('/dashboard',isAuth,async(req,res)=>{
    res.render("pages/dashboard",{auth:req.session.isAuth,data:req.session.data,admin:req.session.isAdmin,logged:logged});
 });
 
-app.get('/admin/dashboard',isAuth,isAdmin,function(req,res){
-   res.render("pages/admindashboard",{auth:req.session.isAuth,data:req.session.data,admin:req.session.isAdmin})
-})
-app.get('/admin/orderintake',isAuth,isAdmin,function(req,res){
-   res.render("pages/orderintake",{auth:req.session.isAuth,data:req.session.data,admin:req.session.isAdmin})
-})
-app.get('/admin/orderdelivery',isAuth,isAdmin,function(req,res){
-   res.render("pages/orderdelivery",{auth:req.session.isAuth,data:req.session.data,admin:req.session.isAdmin})
-})
-app.get('/admin/checkuser',isAuth,isAdmin,function(req,res){
-   res.render("pages/checkuser",{auth:req.session.isAuth,data:req.session.data,admin:req.session.isAdmin})
-})
+
 //end of routes
 
 //form handling
@@ -180,11 +161,7 @@ app.post('/login',async(req,res)=>{
       res.redirect("/login?error=passworddoesnotmatch")
    }
    req.session.data=check;
-   if(req.session.data.role==="admin"){
-      req.session.isAuth=true;
-      req.session.isAdmin=true
-      return res.redirect("/admin/dashboard")
-   }
+  
    
    req.session.isAuth=true;
 

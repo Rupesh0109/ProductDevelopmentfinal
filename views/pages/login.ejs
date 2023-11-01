@@ -2,7 +2,7 @@
 
 <form id="login" method="post" action="/login" onsubmit="return validateform()">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Roll number</label>
+      <label for="exampleInputEmail1" class="form-label">Username</label>
       <input type="text" class="form-control" id="email" aria-describedby="emailHelp" name="roll" onblur="validateemail()">
       <p id="emailerror" style="color: red;"></p>
     </div>
@@ -96,7 +96,7 @@
         }
         if($("#email").val()==""){
             $("#email").addClass("error")
-            $("#emailerror").text("Roll No Cannot Be Empty")
+            $("#emailerror").text("Username Cannot Be Empty")
         }
     }
     function validatepassword(){
@@ -106,7 +106,7 @@
         }
         if($("#password").val()==""){
             $("#password").addClass("error")
-            $("#passworderror").text("Roll No Cannot Be Empty")
+            $("#passworderror").text("Password Cannot Be Empty")
         }
     }
 
@@ -116,7 +116,7 @@
         if($("#email").val()==""){
             isValid=false;
             $("#email").addClass("error")
-            $("#emailerror").text("Roll No Cannot Be Empty")
+            $("#emailerror").text("Username Cannot Be Empty")
         }
         if($("#password").val()==""){
              isValid=false;
