@@ -22,6 +22,7 @@
     "jimp": "^0.22.10",
     "mongodb": "^6.2.0",
     "mongoose": "^7.6.3",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1",
     "qrcode": "^1.5.3",
     "qrcode-reader": "^1.0.4"

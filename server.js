@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const path=require("path");
-const QRCode = require('qrcode');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const multer = require('multer');
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'/views'));
@@ -31,9 +31,22 @@ const connectDB = async () => {
  connectDB();
 
 
+ const storage = multer.diskStorage({
+   destination: function (req, file, cb) {
+     cb(null, 'uploads/');
+   },
+   filename: function (req, file, cb) {
+     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+   }
+ });
+
+
+ const upload = multer({ storage: storage });
+
+
  const store=new MongoDBSession({
    uri:MONGOURI,
-   databaseName:"Laundry-website",
+   databaseName:"Photos",
    collection:"sessions"
  })
 
@@ -54,13 +67,7 @@ const isAuth=async(req,res,next)=>{
    }
 }
 
-const generateQR = async text => {
-   try {
-     return await QRCode.toDataURL(text)
-   } catch (err) {
-     console.error(err)
-   }
- }
+
 //end of middleware
 
 
@@ -171,6 +178,29 @@ catch(error){
 }
   
 })
+
+app.post('/upload', upload.single('image'), async (req, res) => {
+   try {
+     const newImage = await UserModel.findOne({"rollno":req.session.rollno});
+     newImage.photos.push({
+      name:req.file.originalname,
+      data:fs.readFileSync(req.file.path),
+      contentType:req.file.mimetype
+     }) 
+     await newImage.save();
+     res.send('Image uploaded and saved successfully');
+   } catch (error) {
+     res.status(500).send(error.message);
+   }
+   
+ });
+
+
+
+
+
+
+
 
 //end of form handling
 

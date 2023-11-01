@@ -2,27 +2,25 @@ const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 
 const userSchema = new Schema({
-    username:{
+    name:{
         type:String,
         required:true
     },
-    password:{
+    rollno:{
         type:String,
-        required:true
+        required:true,
+        unique:true,
     },
-    roll:{
+    email:{
         type:String,
         required:true
     },
     photos:[
-        
-            {
-
-                "photoname": {type:String} ,    
-                "photo": {data:Buffer,contentType:String},        
-              }
-                    
-        
+        {
+            name: {type:String},
+            data: {type:Buffer},
+            contentType:{type: String}
+        }
     ]
 
 },{timestamps:true})
