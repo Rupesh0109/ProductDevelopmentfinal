@@ -98,34 +98,38 @@
     function validatename(){
         if($("#name").val().length<1){
             $("#name").addClass("error")
-            $("#nameerror").text("Name Cannot Be Empty")
+            $("#nameerror").text("Username Cannot Be Empty")
         }
         if(($("#name").val().length>=1)){
             $("#name").removeClass("error")
             $("#nameerror").text("")
         }
-        if(hasNumber($("#name").val())){
-            $("#name").addClass("error")
-            $("#nameerror").text("Name Cannot contain numbers")
-        }
+         
 
     }
     function validaterollno(){
         if($("#roll").val()==""){
             $("#roll").addClass("error")
-            $("#rollerror").text("Roll no cannot be empty")
+            $("#rollerror").text("email cannot be empty")
         }
         if(($("#roll").val().length>=1)){
             $("#roll").removeClass("error")
             $("#rollerror").text("")
         }
-        if(hasalpha($("#roll").val())){
-            $("#roll").addClass("error")
-            $("#rollerror").text("Roll Number Cannot Contain Alphabets")
+        const email = $("#roll").val();
+        if (validateEmail(email)) {$("#roll").removeClass("error")
+        $("#rollerror").text("")
+        } else {
+            $("#rollerror").text("Invalid email address")
         } 
+    } 
+
+    function validateEmail(email) {
+        const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+        return emailRegex.test(email);
+      }
         
-        
-    }
+    
 function validatepassword(){
     if($("#password").val().length<1){
         $("#password").addClass("error")
@@ -155,24 +159,25 @@ function validateconfirmpassword(){
         if($("#name").val().length<1){
             isValid=false;
             $("#name").addClass("error")
-            $("#nameerror").text("Name Cannot Be Empty")
+            $("#nameerror").text("Username Cannot Be Empty")
         }
         if(hasNumber($("#name").val())){
             isValid=false;
             $("#name").addClass("error")
-            $("#nameerror").text("Name Cannot contain numbers")
+            $("#nameerror").text("Username Cannot contain numbers")
         }
         if(($("#roll").val())==""){
             isValid=false
             $("#roll").addClass("error")
-            $("#rollerror").text("Roll no Cannot Be Empty")
+            $("#rollerror").text("Email Cannot Be Empty")
         }
-        
-        if(hasalpha($("#roll").val())){
+        const email = $("#roll").val();
+        if (!(validateEmail(email))){
             isValid=false
-            $("#roll").addClass("error")
-            $("#rollerror").text("Roll Number Cannot Contain Alphabets")
+            $("#rollerror").text("Invalid email address")
         } 
+
+
         if(($("#password").val()).length<1){
             isValid=false
             $("#password").addClass("error")
@@ -190,11 +195,7 @@ function validateconfirmpassword(){
             $("#passworderror").text("Passwords donot match")
             $("#confirmpassworderror").text("Passwords donot match")
         }
-        if(hasalpha($("#roll").val())){
-            isValid=false
-            $("#roll").addClass("error")
-            $("#rollerror").text("Roll Number Cannot Contain Alphabets")
-        }
+        
         return isValid
     }
 </script>

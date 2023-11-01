@@ -2,7 +2,7 @@
 
 <form id="login" method="post" action="/login" onsubmit="return validateform()">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Username</label>
+      <label for="exampleInputEmail1" class="form-label">E-mail</label>
       <input type="text" class="form-control" id="email" aria-describedby="emailHelp" name="roll" onblur="validateemail()">
       <p id="emailerror" style="color: red;"></p>
     </div>
@@ -96,9 +96,21 @@
         }
         if($("#email").val()==""){
             $("#email").addClass("error")
-            $("#emailerror").text("Username Cannot Be Empty")
+            $("#emailerror").text("Email Cannot Be Empty")
         }
+        const email = $("#email").val();
+        if (validateEmail(email)) {$("#email").removeClass("error")
+        $("#emailerror").text("")
+        } else {
+            $("#emailerror").text("Invalid email address")
+        } 
+        
     }
+    function validateEmail(email) {
+      const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+      return emailRegex.test(email);
+    }
+
     function validatepassword(){
         if(($("#password").val()).length>=1){
             $("#passworderror").text("")

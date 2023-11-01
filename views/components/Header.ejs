@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Laundry</a>
+          <a class="navbar-brand" href="/">Memories</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -25,16 +25,13 @@
               <% if(auth){ %>
                 <li class="nav-item dropdown" style="padding-right: 50px;">
                   <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <%= data.name %>
+                    <%= data.username %>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <% if(!admin){ %>
+                   
                     <a class="dropdown-item" href="/dashboard">Dashboard</a>  
-                      <% } %>
-                      <% if(admin){ %>
-                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                        <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>  
-                      <% } %>
+                      
+                      
                     <a class="dropdown-item" href="/logout">Logout</a>
                   </div>
                 </li>

@@ -133,13 +133,12 @@ app.post("/register",async(req,res)=>{
    if(user){
       return res.redirect("/login?error=userexists")
    }
-   var qrsrc=await generateQR(roll);
+   
    
     user= new UserModel({
-      name:name.toUpperCase(),
-      rollno:roll,
+      username:name.toUpperCase(),
+      roll:roll,
       password:password,
-      qrsrc:qrsrc
    });
    
 
@@ -153,7 +152,7 @@ app.post("/register",async(req,res)=>{
 app.post('/login',async(req,res)=>{
    try{
    const {roll,password}=req.body;
-   let check= await UserModel.findOne({"rollno":roll});
+   let check= await UserModel.findOne({"roll":roll});
    if(!check){
      return res.redirect("/register?error=usernotexists")
    }

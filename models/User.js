@@ -10,7 +10,7 @@ const userSchema = new Schema({
         type:String,
         required:true
     },
-    email:{
+    roll:{
         type:String,
         required:true
     },
